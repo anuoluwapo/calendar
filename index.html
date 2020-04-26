@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        body{
+            margin: 10px;
+            font-family: sans-serif;
+        }
+        .container{
+            background-color: #f4f7f8;
+            max-width: 670px;
+            margin: 5rem auto;
+        }
+        .label{
+           text-align: center;
+           padding-top: 10px;
+        }
+        select{
+            outline: none;
+        }
+       h1{
+            text-align: center;
+        }
+        ul{
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        li{
+            background-color: #4A2DB6;
+            border: 2px solid #FFFFFF;
+            color: #f4f7f8;
+            padding: 5px;
+            padding-bottom: 15px;
+            
+        }
+        .feb{
+            background-color: #558abb; 
+        }
+        .apr-jun-sep-nov{
+            background-color: #008080;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="label">
+            <label for="month">Select month:</label>
+            <select name="" id="month">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+        </div>
+        <h1></h1>
+        <ul></ul>
+    </div>
+    <script>
+        let select = document.querySelector('select');
+        let month = document.querySelector('h1');
+        let list = document.querySelector('ul');
+        select.addEventListener('change',() => {
+            let choice = select.value;
+            let days = 31;
+            switch(choice){
+                case 'January': 
+                case 'March':
+                case 'May': 
+                case 'July': 
+                case 'August': 
+                case 'October': 
+                case 'December': 
+                // month.textContent = choice;
+                // createCalendar(31, choice);
+                break;
+                case 'February': 
+                days = 29;
+                // month.textContent = choice;
+                // createCalendar(29, choice);
+                break;
+                case 'April': 
+                case 'June': 
+                case 'September': 
+                case 'November':  
+                days = 30;
+                // month.textContent = choice;
+                // createCalendar(30, choice);
+            }
+            createCalendar(days, choice);
+        });
+        createCalendar = (days, choice) => {
+            list.innerHTML = '';
+            month.textContent = choice;
+            for(let i=1; i<=days; i++){
+                let listItem = document.createElement('li');
+                listItem.textContent = i;
+                if(choice === 'February'){
+                    listItem.classList.add('feb');
+                }
+                else if(choice === 'April' || choice === 'June' || choice === 'September' || choice === 'November'){
+                    listItem.classList.add('apr-jun-sep-nov');
+                }
+                list.appendChild(listItem);
+            }
+        }
+        createCalendar(31, 'January');
+    </script>
+</body>
+</html>
